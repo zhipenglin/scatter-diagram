@@ -149,7 +149,7 @@ class AddPointer extends Component{
     };
     handlerClick=()=>{
         const {onAdd}=this.props,format=(value)=>{
-            value=parseInt(value)||0;
+            value=parseInt(value,10)||0;
             value=value>100?100:value;
             value=value<-100?-100:value;
             return value;
@@ -157,7 +157,7 @@ class AddPointer extends Component{
         onAdd&&onAdd({
             x:format(this.state.x),
             y:format(this.state.y),
-            r:Math.min(parseInt(this.state.r)||0,50),
+            r:Math.min(parseInt(this.state.r,10)||0,50),
             type:this.state.type||'#174279',
             name:this.state.name||'新点'
         });
@@ -201,7 +201,8 @@ export default ((WrappedComponent)=>class extends Component{
                 data:JSON.parse(this.textarea.value)
             });
         }catch (e) {
-
+            alert('同步失败');
+            this.textarea.value=JSON.stringify(this.state.data,null,2);
         }
     };
     handlerPreview=()=>{
